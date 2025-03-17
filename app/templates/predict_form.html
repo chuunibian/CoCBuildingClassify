@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            margin-top: 0;
+        }
+        
+        .upload-form {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .file-input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .file-input-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #ecf0f1;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .file-input-button:hover {
+            background-color: #d6dbdf;
+        }
+        
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-name {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        
+        .submit-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            border-radius: 6px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Upload Image</h1>
+            <p>Choose an image for classification</p>
+        </div>
+        
+        <div class="upload-form">
+            <form action="{{ url_for('predict') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="image">Select an image to classify:</label>
+                    <div class="file-input-container">
+                        <div class="file-input-button">
+                            Choose File
+                            <input type="file" id="image" name="image" accept="image/*" required class="file-input">
+                        </div>
+                        <div id="file-name" class="file-name">No file chosen</div>
+                    </div>
+                    <img id="image-preview" class="image-preview">
+                </div>
+                
+                <button type="submit" class="submit-button">Classify Image</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Display file name when selected
+        document.getElementById('image').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+            document.getElementById('file-name').textContent = fileName;
+            
+            // Show image preview
+            if (e.target.files[0]) {
+                const preview = document.getElementById('image-preview');
+                preview.style.display = 'block';
+                preview.src = URL.createObjectURL(e.target.files[0]);
+            }
+        });
+    </script>
+</body>
+</html>

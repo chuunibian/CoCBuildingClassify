@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            margin-top: 0;
+        }
+        
+        .result-section {
+            margin-bottom: 40px;
+        }
+        
+        .title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            margin-bottom: 20px;
+        }
+        
+        .result-content {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 20px;
+        }
+        
+        .highlight {
+            color: #2980b9;
+            font-weight: 600;
+            font-size: 1.2em;
+        }
+        
+        .confidence-meter {
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .confidence-value {
+            background-color: #3498db;
+            height: 100%;
+            border-radius: 10px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .back-link:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Classification Results</h1>
+        </div>
+        
+        <div class="result-section">
+            <div class="title">Classification</div>
+            <div class="result-content">
+                <p>Your image was classified as: <span class="highlight">{{ predicted_class }}</span></p>
+            </div>
+        </div>
+        
+        <div class="result-section">
+            <div class="title">Confidence</div>
+            <div class="result-content">
+                <p>Classification confidence: <span class="highlight">{{ "%.2f"|format(confidence) }}%</span></p>
+                <div class="confidence-meter">
+                    <div class="confidence-value" style="width: {{ confidence }}%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="{{ url_for('predict') }}" class="back-link">Upload Another Image</a>
+    </div>
+</body>
+</html>
